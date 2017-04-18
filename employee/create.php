@@ -18,9 +18,9 @@ if(isset($_POST['firstname'])){
                 foreach ($_POST['name'] as $res) {
 
                     $sql = "INSERT INTO employee_department VALUES (". $id[0] .", ". (integer) $res . ")";
-                    $result = mysqli_query($db, $sql);
+                    $result = $app->request($sql);
                     if($result){
-
+                        header("Location: http://" . $_SERVER['HTTP_HOST'] . "/employee.php");
                     }
                 }
             }
@@ -48,7 +48,7 @@ while($departments = mysqli_fetch_row($depsql)){
 }
 
 echo '</select>';
-echo '<p><input type="submit" />Создать</p>';
+echo '<p><input type="submit" value="СОЗДАТЬ" /></p>';
 echo "</form>";
 
 require_once ('../footer.php');

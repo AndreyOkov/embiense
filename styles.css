@@ -1,24 +1,22 @@
 table {
     border-collapse: collapse;
 }
-
 .tbl {
     border: 1px solid grey;
 }
 table td{
     padding: 10px;
     border:1px solid grey;
-
 }
-
 .index__table-td{
     text-align: center;
     font-size: 30px;;
 }
+
 input[type="submit"], .action, .home, .header__ul a{
     display: inline-block;
     border: 1px solid #aaa;
-    background-color: #f3f3f3;
+    background-color: #ebffe4;
 
     height: 40px;
     line-height: 40px;
@@ -51,19 +49,15 @@ input[type="text"]{
     border: 1px solid #cacaca;
     padding: 0 20px;
     background-color: #eefaff;
-
 }
 
 *{
     border-radius: 3px;
-
 }
-
 
 input[type="submit"]{
     cursor: pointer;
 }
-
 label {
     width: 300px;
     display: block;
@@ -79,11 +73,8 @@ a{
     display: inline-block;
     list-style-type: none;
 }
-.header__ul a{
 
-}
 .container{
     width: 1200px;
     margin:0 auto;
-
 }

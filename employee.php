@@ -20,7 +20,6 @@ $sql = $app->request("SELECT * FROM employee"); ?>
 
     <tr>
     <td><?=$res[1]. ' ' . $res[2] . ' ' . $res[3]?></td>
-
     <td><?=$res[4]?></td>
     <td><?=$res[5]?></td>
 
@@ -48,6 +47,6 @@ $sql = $app->request("SELECT * FROM employee"); ?>
 <?php } ?>
 
 </table>
-<a class='action' href='./employee/create.php'>create</a>
+    <a class='action' href='./employee/create.php'>СОЗДАТЬ</a>
 
 <?php require_once('./footer.php'); ?>
