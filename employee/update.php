@@ -38,25 +38,40 @@ if(!empty($_POST)) {
 
 require_once ('../header.php');
 
+$curDeps = [];
+$req = $app->request("SELECT * FROM employee_department WHERE id_employee=" . $_GET['id']);
+while ($row = mysqli_fetch_assoc($req)) {
+    $curDeps[] = $row['id_department'];
+}
+
 $sql = "SELECT * FROM employee WHERE id=" .(integer)$_GET['id'];
 $result = $app->request($sql);
-if($result = mysqli_fetch_array($result, MYSQLI_BOTH)){
-    echo "<form action=" . $_SERVER['PHP_SELF'] . " method='post'>";
+if ($result = mysqli_fetch_array($result, MYSQLI_BOTH)) { ?>
+    <form action="<?= $_SERVER['PHP_SELF'] ?>" method='post'>
 
-    echo '<p><label for="firstname">Фамилия:</label> <input type = "text" name ="firstname" value="'. $result['firstname'] .'"/> </p>';
-    echo '<p><label for="lastname">Имя:</label><input type = "text" name ="lastname" value="'. $result['lastname'] .'"/> </p>';
-    echo '<p><label for="patronymic">Отчество:</label><input type = "text" name ="patronymic" value="'. $result['patronymic'] .'"/> </p>';
-    echo '<p><label for="gender">Пол:</label><input type = "text" name ="gender" value="'. $result['gender'] .'"/> </p>';
-    echo '<p><label for="salary">З/п:</label><input type = "text" name ="salary" value="'. $result['salary'] .'"/> </p>';
-    echo '<p><input type = "hidden" name ="id" value="' . $_GET['id'] . '" /> </p>';
-    echo '<p><label>Отделы:</label>';
-    echo '<select class="chosen" multiple="true" name="name[]">';
+        <p><label for="firstname">Фамилия:</label> <input type="text" name="firstname"
+                                                          value="<?= $result['firstname'] ?>"/></p>
+        <p><label for="lastname">Имя:</label><input type="text" name="lastname" value="<?= $result['lastname'] ?>"/></p>
+        <p><label for="patronymic">Отчество:</label><input type="text" name="patronymic"
+                                                           value="<?= $result['patronymic'] ?>"/></p>
+        <p><label for="gender">Пол:</label><input type="text" name="gender" value="<?= $result['gender'] ?>"/></p>
+        <p><label for="salary">З/п:</label><input type="text" name="salary" value="<?= $result['salary'] ?>"/></p>
+        <p><input type="hidden" name="id" value="<?= $_GET['id'] ?>"/></p>
+
+        <p><label>Отделы:</label>
+            <select class="chosen" multiple="true" name="name[]">
+
+
+                <?php
     $depsql = $app->request("SELECT id, name FROM departments");
-    while($departments = mysqli_fetch_row($depsql)){
-        echo '<option value="'.$departments[0].'">'. $departments[1] . '</option>';
-    }
+                while ($departments = mysqli_fetch_row($depsql)) { ?>
+                    <option
+                        value="<?= $departments[0] ?>" <?= ((array_search($departments[0], $curDeps) !== false) ? ' selected="selected"' : ' ') ?>> <?= $departments[1] ?> </option>
+                <?php } ?>
+            </select>
+        <p><input type="submit"/></p>
+    </form>
 
-    echo '</select>';
-    echo '<p><input type="submit" /></p>';
-    echo "</form>";
-} require_once ('../footer.php');
+
+<?php }
+require_once('../footer.php'); ?>

@@ -4,9 +4,7 @@ require_once ('../App.php');
 
 if (isset($_POST['name'])) {
 
-    $sql = "UPDATE  departments SET " .
-        " name = '" . $_POST['name'] .
-        "' WHERE id=" . (integer)$_POST['id'];
+    $sql = "UPDATE  departments SET  name = '" . $_POST['name'] . "' WHERE id=" . (integer)$_POST['id'];
     $result = $app->request($sql);
     if ($result) {
             header("Location: http://" . $_SERVER['HTTP_HOST'] . "/departments.php");
