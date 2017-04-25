@@ -1,8 +1,10 @@
-<?php use application\App;
+<?php
+
+use application\App;
 
 require_once('header.php');
-require_once('App.php'); ?>
-
+require_once('App.php');
+?>
 
 <?php
 $sql = 'SELECT e . id, 
@@ -20,16 +22,20 @@ $rows = $app->request($sql);
 
 $departments = [];
 $employees = [];
+var_dump($rows);
 foreach ($rows as $row) {
     if (!isset($departments[$row['department_id']])) {
         $departments[$row['department_id']] = $row['department_name'];
-        }
+    }
     if (!isset($employees[$row['id']]) && isset($row['id'])) {
         $employees[$row['id']] = [
             'id' => $row['id'],
             'name' => $row['name'],
             'departments' => []
         ];
+    }
+
+    if (!empty($row['name'])) {
         array_push($employees[$row['id']]['departments'], $row['department_id']);
     }
 } ?>

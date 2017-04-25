@@ -1,6 +1,10 @@
 <?php
+
+defined('ROOT') or define('ROOT', dirname(__FILE__));
+
 require_once('header.php');
 require_once('App.php');
+
 ?>
 
     <p class='title-p'>Сотрудники</p>

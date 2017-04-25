@@ -20,6 +20,11 @@ class App
     {
         return mysqli_query($this->db, $sql);
     }
+
+    public function getDb()
+    {
+        return $this->db;
+    }
 }
 
 $app = new App("localhost", "root", '', 'Job');
