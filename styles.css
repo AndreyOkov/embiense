@@ -4,7 +4,8 @@ table {
 .tbl {
     border: 1px solid grey;
 }
-table td{
+
+table td, th {
     padding: 10px;
     border:1px solid grey;
 }
@@ -28,11 +29,7 @@ input[type="submit"], .action, .home, .header__ul a{
     margin-right:20px;
 
 }
-/*p{*/
-    /*display: inline-block;*/
-    /*margin: 0;*/
-    /*padding: 0;*/
-/*}*/
+
 .title-p{
     width: 100%;
     font-size: 30px;

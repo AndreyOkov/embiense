@@ -1,48 +1,56 @@
-<?php  require_once('header.php'); ?>
-<?php  require_once('App.php'); ?>
+<?php use application\App;
 
+require_once('header.php');
+require_once('App.php'); ?>
 
 
 <?php
+$sql = 'SELECT e . id, 
+            CONCAT_WS(" ", e.firstname, e.lastname, e.patronymic) AS name,
+            d.id AS department_id, d.name AS department_name
+            FROM  departments d 
+            LEFT JOIN employee_department ed
+              ON d.id = ed.id_department
+            LEFT JOIN employee e
+              ON e.id = ed.id_employee
+            ORDER BY e.id';
+
+$rows = $app->request($sql);
+
+
 $departments = [];
 $employees = [];
-
-
-$sql =$app->request("SELECT id, firstname, lastname, patronymic  FROM employee");
-while($tablerows = mysqli_fetch_array($sql, MYSQLI_BOTH))
-{
-    $employees[] = [(integer)$tablerows[0], $tablerows[1], $tablerows[2], $tablerows[3]];
-}
-
-$sql = $app->request("SELECT id, name FROM departments");
-while($tablerows = mysqli_fetch_array($sql, MYSQLI_BOTH))
-{
-    $departments[] = [(integer)$tablerows[0], $tablerows[1]];
+foreach ($rows as $row) {
+    if (!isset($departments[$row['department_id']])) {
+        $departments[$row['department_id']] = $row['department_name'];
+        }
+    if (!isset($employees[$row['id']]) && isset($row['id'])) {
+        $employees[$row['id']] = [
+            'id' => $row['id'],
+            'name' => $row['name'],
+            'departments' => []
+        ];
+        array_push($employees[$row['id']]['departments'], $row['department_id']);
+    }
 } ?>
 
-
-<table class='tbl'>
+<table>
     <tr>
-    <td></td>
-    <?php foreach ($departments as $department){ ?>
-        <td><?= $department[1] ?></td>
-    <?php } ?>
+        <th></th>
+        <?php foreach ($departments as $department_name) { ?>
+            <th><?php echo $department_name; ?></th>
+        <?php } ?>
     </tr>
+    <?php foreach ($employees as $employee) { ?>
+        <tr>
+            <th><?php echo $employee['name']; ?></th>
+            <?php foreach ($departments as $department_id => $department_name) { ?>
+                <td class="index__table-td">
+                    <?php echo(in_array($department_id, $employee['departments']) ? '+' : '-'); ?>
+                </td>
+            <?php } ?>
+        </tr>
+    <?php } ?>
+</table>
 
-<?php
-$sql = $app->request("CREATE TEMPORARY TABLE temp_table AS( SELECT * FROM `employee_department` )");
-for($i = 0; $i < count($employees); $i++){
-    echo "<tr><td>" . $employees[$i][1] . ' ' .$employees[$i][2].' '. $employees[$i][3] . "</td>";
-        for($k = 0; $k < count($departments); $k++){
-            echo "<td class='index__table-td'>";
-            $is_in_table = $app->request("SELECT * FROM temp_table  WHERE id_employee =". $employees[$i][0]. " AND id_department =".$departments[$k][0]);
-            $res = mysqli_fetch_array($is_in_table, MYSQLI_BOTH);
-            echo $res ? '+' : '';
-            echo "</td>";
-        }
-    echo "</tr>";
-} echo "</table>" ?>
-
-<?php  require_once('footer.php'); ?>
-
-
+<?php require_once('footer.php'); ?>

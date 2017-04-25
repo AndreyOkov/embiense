@@ -1,5 +1,5 @@
 <?php
-require_once ('../App.php');
+require_once('../App.php');
 $sql = $app->request("SELECT * FROM departments");
 
 if(isset($_POST['name'])) {
@@ -9,12 +9,12 @@ if(isset($_POST['name'])) {
         header("Location: http://" . $_SERVER['HTTP_HOST'] . "/departments.php");
     }
 }
-    
-require_once ('../header.php'); ?>
+
+require_once('../header.php'); ?>
 
 <form action='<?=$_SERVER['PHP_SELF']?>' method='post'>
     <p class="departments__create-p"><input type = "text" name ="name" /> </p>
     <p class="departments__create-p"><input type="submit" /></p>
 </form>
 
-<?php require_once ('../footer.php'); ?>
+<?php require_once('../footer.php'); ?>

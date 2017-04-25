@@ -16,6 +16,7 @@
 <?php 
 $sql = $app->request("SELECT * FROM departments");
 while($res = mysqli_fetch_row($sql)){
+
     $sql_in ="
 SELECT MAX(em.salary) FROM employee em 
 JOIN employee_department emdp
@@ -26,6 +27,7 @@ WHERE dp.id=" . (integer) $res[0] ."
 GROUP BY dp.name";
     $sql_in = $app->request( $sql_in );
     $res_in = mysqli_fetch_row($sql_in);
+
     $sql_count = "
     SELECT COUNT(em.firstname) FROM employee em
     JOIN employee_department emdp
