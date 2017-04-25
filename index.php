@@ -22,7 +22,7 @@ $rows = $app->request($sql);
 
 $departments = [];
 $employees = [];
-var_dump($rows);
+
 foreach ($rows as $row) {
     if (!isset($departments[$row['department_id']])) {
         $departments[$row['department_id']] = $row['department_name'];
