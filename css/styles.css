@@ -1,0 +1,25 @@
+.starter-template {
+    margin-top: 200px;
+}
+
+.index__table-td {
+    text-align: center;
+    vertical-align: middle;
+    font-size: 20px;
+}
+
+input[type="submit"], a.action {
+    display: inline-block;
+    border: 1px solid #aaa;
+    background-color: #212021;
+    color: #f9f9f9;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0 15px;
+    margin: 50px 0;
+    margin-right: 20px;
+
+}
