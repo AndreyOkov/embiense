@@ -13,17 +13,15 @@ function optionHelper($allDepartments, $employeeDepartments = [])
     }
 }
 
-function addDepartmentsToEmployee($idEmployee, $app)
+function addDepartmentsToEmployee($idEmployee, $mysqli)
 {
     if (isset($_POST['departments'])) {
         foreach ($_POST['departments'] as $idDepartment) {
             $sql = "INSERT INTO employee_department
                     VALUES (" . (integer)$idEmployee . ", " . (integer)$idDepartment . ")";
 
-            $result = $app->request($sql);
-            if ($result) {
-                header("Location: /employee.php");
-            }
+            $result = $mysqli->query($sql);
+            return $result;
         }
     }
 }
