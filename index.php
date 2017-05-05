@@ -127,6 +127,7 @@ switch ($action) {
 
         break;
     case 'apply-emp-create':
+
         if (!empty($_POST['firstname']) && !empty($_POST['lastname']) && !empty($_POST['departments'])) {
             $sql = $mysqli->prepare("INSERT INTO  employee(firstname, lastname, patronymic, gender, salary) 
                                    VALUES (?,?,?,?,?)");
